@@ -1,0 +1,240 @@
+---
+const subscriberCount = 2481;
+
+function formatNumber(num: number) {
+    return new Intl.NumberFormat('en-US').format(num);
+}
+---
+<section class="subscribe" id="subscribe">
+    <div class="subscribe-container">
+        <div class="section-header fade-up">
+            <h2 class="section-title">BE THE FIRST TO KNOW</h2>
+            <p class="section-subtitle">
+                Join our waitlist to get early access and exclusive updates about our launch
+            </p>
+        </div>
+        <form class="subscribe-form fade-up" id="subscribe-form">
+            <div class="form-group">
+                <input type="email" placeholder="Enter your email" required class="subscribe-input" />
+                <button type="submit" class="subscribe-btn">GET EARLY ACCESS</button>
+            </div>
+            <p class="form-note">Join {formatNumber(subscriberCount)}+ future users already on the waitlist</p>
+            <div class="form-message success hidden">
+                <div class="message-icon">✨</div>
+                <p>Welcome aboard! You're now on the waitlist.</p>
+            </div>
+            <div class="form-message error hidden">
+                <div class="message-icon">❌</div>
+                <p class="error-text"></p>
+            </div>
+        </form>
+    </div>
+</section>
+
+<style>
+.subscribe {
+    padding: 8rem 0;
+    background: var(--darker-bg);
+    position: relative;
+}
+
+.subscribe::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+}
+
+.subscribe-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+
+
+.subscribe-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-group {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.subscribe-input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: 2px solid rgba(0, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(0, 255, 255, 0.05);
+    color: var(--text-primary);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.subscribe-input:focus {
+    outline: none;
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+.subscribe-btn {
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+    color: var(--dark-bg);
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.subscribe-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+}
+
+.form-note {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
+.form-message {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    animation: slideIn 0.3s ease-out;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.form-message.hidden {
+    display: none;
+}
+
+.form-message.success {
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid var(--neon-cyan);
+}
+
+.form-message.error {
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid rgba(255, 0, 0, 0.3);
+}
+
+.message-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.form-message p {
+    margin: 0;
+    color: var(--text-primary);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .form-group {
+        flex-direction: column;
+    }
+
+    .subscribe-btn {
+        width: 100%;
+    }
+}
+</style>
+
+<script>
+// Form submission handler
+const form = document.getElementById('subscribe-form');
+if (form instanceof HTMLFormElement) {
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formElement = e.target as HTMLFormElement;
+        const emailInput = formElement.querySelector('input[type="email"]') as HTMLInputElement;
+        const email = emailInput.value;
+        
+        const submitButton = formElement.querySelector('.subscribe-btn') as HTMLButtonElement;
+        const originalButtonText = submitButton.textContent;
+        
+        try {
+            submitButton.disabled = true;
+            submitButton.textContent = "SUBSCRIBING...";
+            
+            const response = await fetch('/api/subscribe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
+            });
+
+            // Log para depuración
+            console.log('Response status:', response.status);
+            console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+            
+            let data;
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                data = await response.json();
+            } else {
+                const text = await response.text();
+                console.error('Received non-JSON response:', text);
+                throw new Error('Server returned invalid response format');
+            }
+            
+            const successMessage = formElement.querySelector('.form-message.success') as HTMLElement;
+            const errorMessage = formElement.querySelector('.form-message.error') as HTMLElement;
+            const errorText = errorMessage?.querySelector('.error-text') as HTMLElement;
+
+            // Ocultar cualquier mensaje previo
+            successMessage?.classList.add('hidden');
+            errorMessage?.classList.add('hidden');
+
+            if (!response.ok) throw new Error(data.message);
+            
+            // Mostrar mensaje de éxito
+            successMessage?.classList.remove('hidden');
+            formElement.reset();
+        } catch (error) {
+            console.error('Subscription error:', error);
+            // Mostrar mensaje de error
+            if (errorMessage && errorText) {
+                errorText.textContent = error instanceof Error ? error.message : "Something went wrong. Please try again.";
+                errorMessage.classList.remove('hidden');
+            }
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = originalButtonText;
+        }
+    });
+}
+</script>

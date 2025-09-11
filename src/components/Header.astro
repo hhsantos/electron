@@ -1,0 +1,95 @@
+---
+---
+<header>
+    <nav class="nav-container">
+        <div class="logo">ELECTRON</div>
+        <ul class="nav-menu">
+            <li><a href="#features">FEATURES</a></li>
+            <li><a href="#roadmap">ROADMAP</a></li>
+            <li><a href="#subscribe">SUBSCRIBE</a></li>
+        </ul>
+        <a href="#subscribe" class="nav-cta">JOIN WAITLIST</a>
+    </nav>
+</header>
+
+<style>
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(5, 5, 8, 0.95);
+    backdrop-filter: blur(20px) saturate(180%);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--neon-cyan);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    text-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.logo::before {
+    content: '◆';
+    color: var(--neon-purple);
+    margin-right: 8px;
+    animation: pulse 2s infinite;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2.5rem;
+}
+
+.nav-menu a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.nav-menu a:hover {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 8px var(--neon-cyan);
+}
+
+.nav-cta {
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+    color: var(--dark-bg);
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+}
+</style>

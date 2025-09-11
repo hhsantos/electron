@@ -1,0 +1,237 @@
+---
+const roadmapItems = [
+    {
+        phase: 'Q4 2025',
+        title: 'DEVELOPMENT PHASE',
+        items: [
+            'Core wallet infrastructure',
+            'Security audits & testing',
+            'Multi-chain integration testing',
+            'UI/UX refinement'
+        ],
+        status: 'in-progress'
+    },
+    {
+        phase: 'Q1 2026',
+        title: 'BETA LAUNCH',
+        items: [
+            'Private beta access',
+            'Community feedback integration',
+            'Security improvements',
+            'Performance optimization'
+        ],
+        status: 'upcoming'
+    },
+    {
+        phase: 'Q2 2026',
+        title: 'PUBLIC RELEASE',
+        items: [
+            'Public launch',
+            'Mobile app release',
+            'Advanced trading features',
+            'Partnership announcements'
+        ],
+        status: 'upcoming'
+    }
+];
+---
+<section class="roadmap" id="roadmap">
+    <div class="roadmap-container">
+        <div class="section-header fade-up">
+            <h2 class="section-title">DEVELOPMENT ROADMAP</h2>
+            <p class="section-subtitle">
+                Our journey to revolutionize decentralized finance
+            </p>
+        </div>
+        <div class="roadmap-timeline">
+            {roadmapItems.map((item, index) => (
+                <div class={`roadmap-item fade-up ${item.status}`}>
+                    <div class="roadmap-phase">{item.phase}</div>
+                    <div class="roadmap-content">
+                        <h3 class="roadmap-title">{item.title}</h3>
+                        <ul class="roadmap-list">
+                            {item.items.map(bullet => (
+                                <li>{bullet}</li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<style>
+.roadmap {
+    padding: 8rem 0;
+    background: var(--dark-bg);
+    position: relative;
+}
+
+.roadmap::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 48%, rgba(0, 255, 255, 0.03) 50%, transparent 52%);
+}
+
+.roadmap-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+}
+
+.roadmap-timeline {
+    display: grid;
+    gap: 3rem;
+    position: relative;
+    margin-top: 4rem;
+}
+
+.roadmap-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, 
+        var(--neon-cyan),
+        rgba(0, 255, 255, 0.1)
+    );
+    z-index: 1;
+}
+
+.roadmap-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    position: relative;
+    padding: 2rem;
+}
+
+.roadmap-item::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--neon-cyan);
+    box-shadow: 0 0 20px var(--neon-cyan);
+    z-index: 2;
+}
+
+.roadmap-item:nth-child(odd) .roadmap-phase {
+    text-align: right;
+    padding-right: 4rem;
+}
+
+.roadmap-item:nth-child(odd) .roadmap-content {
+    padding-left: 4rem;
+}
+
+.roadmap-item:nth-child(even) {
+    direction: rtl;
+}
+
+.roadmap-item:nth-child(even) .roadmap-content {
+    direction: ltr;
+    padding-right: 4rem;
+}
+
+.roadmap-item:nth-child(even) .roadmap-phase {
+    direction: ltr;
+    text-align: left;
+    padding-left: 4rem;
+}
+
+.roadmap-phase {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem;
+    color: var(--neon-cyan);
+    font-weight: 600;
+}
+
+.roadmap-content {
+    background: var(--card-bg);
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.roadmap-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.roadmap-list {
+    list-style: none;
+    color: var(--text-secondary);
+}
+
+.roadmap-list li {
+    margin-bottom: 0.5rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.roadmap-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--neon-cyan);
+}
+
+.roadmap-item.in-progress .roadmap-content {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+}
+
+.roadmap-item.completed .roadmap-content {
+    border-color: var(--neon-purple);
+}
+
+.roadmap-item.upcoming .roadmap-content {
+    opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+    .roadmap-timeline::before {
+        left: 2rem;
+    }
+
+    .roadmap-item {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .roadmap-item::before {
+        left: 2rem;
+    }
+
+    .roadmap-item:nth-child(odd) .roadmap-phase,
+    .roadmap-item:nth-child(even) .roadmap-phase {
+        text-align: left;
+        padding: 0 0 0 4rem;
+    }
+
+    .roadmap-item:nth-child(odd) .roadmap-content,
+    .roadmap-item:nth-child(even) .roadmap-content {
+        padding: 2rem;
+    }
+
+    .roadmap-item:nth-child(even) {
+        direction: ltr;
+    }
+}
+</style>

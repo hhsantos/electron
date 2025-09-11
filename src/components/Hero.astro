@@ -1,0 +1,199 @@
+---
+---
+<section class="hero">
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1>THE FUTURE<br>OF DEFI<br>IS COMING</h1>
+            <p class="hero-subtitle">
+                Revolutionary wallet technology meets cutting-edge DeFi protocols. 
+                Be among the first to experience the next generation of decentralized finance.
+            </p>
+            <div class="hero-cta-group">
+                <a href="#subscribe" class="primary-btn">JOIN WAITLIST</a>
+                <a href="#features" class="secondary-btn">LEARN MORE</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-balance">$47,583.21</div>
+                        <div class="card-currency">Total Portfolio</div>
+                    </div>
+                    <div style="color: #00ff41; font-size: 1.2rem;">↗ +12.4%</div>
+                </div>
+                <div style="height: 1px; background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple)); margin: 1rem 0;"></div>
+                <div class="card-actions">
+                    <button class="card-btn">SEND</button>
+                    <button class="card-btn">RECEIVE</button>
+                    <button class="card-btn">STAKE</button>
+                    <button class="card-btn">SWAP</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 50%, var(--darker-bg) 100%);
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ffffff" stroke-width="0.1" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+}
+
+.hero-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-content h1 {
+    font-size: clamp(3rem, 6vw, 6rem);
+    font-weight: 700;
+    line-height: 0.9;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--neon-cyan) 50%, var(--neon-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 1.4rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    max-width: 500px;
+    line-height: 1.5;
+}
+
+.hero-visual {
+    position: relative;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.floating-card {
+    background: linear-gradient(135deg, var(--card-bg) 0%, rgba(17, 17, 24, 0.8) 100%);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 2rem;
+    width: 350px;
+    backdrop-filter: blur(20px);
+    position: relative;
+    animation: float 6s ease-in-out infinite;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.card-balance {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.card-currency {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+.card-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.card-btn {
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    color: var(--neon-cyan);
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.card-btn:hover {
+    background: rgba(0, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+.hero-cta-group {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.primary-btn {
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+    color: var(--dark-bg);
+    padding: 18px 36px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0, 255, 255, 0.4);
+}
+
+.secondary-btn {
+    background: transparent;
+    color: var(--text-primary);
+    padding: 18px 36px;
+    border: 2px solid var(--neon-cyan);
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.secondary-btn:hover {
+    background: rgba(0, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+}
+</style>
