@@ -176,16 +176,50 @@ function formatNumber(num: number) {
 // Form submission handler
 const form = document.getElementById('subscribe-form');
 if (form instanceof HTMLFormElement) {
+    let isSubmitting = false;
+
+    const handleFormMessages = (formElement: HTMLFormElement, type: 'success' | 'error', message: string) => {
+        const successMessage = formElement.querySelector('.form-message.success') as HTMLElement;
+        const errorMessage = formElement.querySelector('.form-message.error') as HTMLElement;
+        const errorText = errorMessage?.querySelector('.error-text') as HTMLElement;
+
+        // Ocultar todos los mensajes
+        successMessage?.classList.add('hidden');
+        errorMessage?.classList.add('hidden');
+
+        // Mostrar el mensaje apropiado
+        if (type === 'success') {
+            successMessage?.classList.remove('hidden');
+        } else {
+            if (errorMessage && errorText) {
+                errorText.textContent = message;
+                errorMessage.classList.remove('hidden');
+            }
+        }
+    };
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
+        
+        // Prevenir múltiples envíos
+        if (isSubmitting) return;
+        
         const formElement = e.target as HTMLFormElement;
         const emailInput = formElement.querySelector('input[type="email"]') as HTMLInputElement;
-        const email = emailInput.value;
+        const email = emailInput.value.trim().toLowerCase();
         
         const submitButton = formElement.querySelector('.subscribe-btn') as HTMLButtonElement;
         const originalButtonText = submitButton.textContent;
         
+        // Validación básica del lado del cliente
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(email)) {
+            handleFormMessages(formElement, 'error', 'Please enter a valid email address');
+            return;
+        }
+        
         try {
+            isSubmitting = true;
             submitButton.disabled = true;
             submitButton.textContent = "SUBSCRIBING...";
             
@@ -196,42 +230,28 @@ if (form instanceof HTMLFormElement) {
                 },
                 body: JSON.stringify({ email }),
             });
-
-            // Log para depuración
-            console.log('Response status:', response.status);
-            console.log('Response headers:', Object.fromEntries(response.headers.entries()));
             
             let data;
-            const contentType = response.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
+            try {
                 data = await response.json();
-            } else {
-                const text = await response.text();
-                console.error('Received non-JSON response:', text);
+            } catch (e) {
                 throw new Error('Server returned invalid response format');
             }
             
-            const successMessage = formElement.querySelector('.form-message.success') as HTMLElement;
-            const errorMessage = formElement.querySelector('.form-message.error') as HTMLElement;
-            const errorText = errorMessage?.querySelector('.error-text') as HTMLElement;
-
-            // Ocultar cualquier mensaje previo
-            successMessage?.classList.add('hidden');
-            errorMessage?.classList.add('hidden');
-
-            if (!response.ok) throw new Error(data.message);
+            if (!response.ok) {
+                throw new Error(data.message || 'Subscription failed. Please try again.');
+            }
             
             // Mostrar mensaje de éxito
-            successMessage?.classList.remove('hidden');
+            handleFormMessages(formElement, 'success', data.message);
             formElement.reset();
+
         } catch (error) {
             console.error('Subscription error:', error);
-            // Mostrar mensaje de error
-            if (errorMessage && errorText) {
-                errorText.textContent = error instanceof Error ? error.message : "Something went wrong. Please try again.";
-                errorMessage.classList.remove('hidden');
-            }
+            const errorMessage = error instanceof Error ? error.message : "Something went wrong. Please try again.";
+            handleFormMessages(formElement, 'error', errorMessage);
         } finally {
+            isSubmitting = false;
             submitButton.disabled = false;
             submitButton.textContent = originalButtonText;
         }
