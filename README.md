@@ -1,46 +1,84 @@
-# Astro Starter Kit: Basics
+# Landing Page with Email Subscription
 
-```sh
-npm create astro@latest -- --template basics
-```
+A modern landing page built with Astro and Supabase, featuring email subscription functionality.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🚀 Tech Stack
 
-## 🚀 Project Structure
+- [Astro](https://astro.build) v5.13.7 - Static Site Generator
+- [Supabase](https://supabase.com) - Backend for email storage
+- CSS - Styling
+- TypeScript - Type safety
 
-Inside of your Astro project, you'll see the following folders and files:
+## 📦 Installation
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+1. Clone the repository:
+\`\`\`bash
+git clone https://github.com/hhsantos/electron.git
+cd electron
+\`\`\`
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+2. Install dependencies:
+\`\`\`bash
+npm install
+\`\`\`
+
+3. Set up environment variables:
+Create a \`.env\` file in the root directory with your Supabase credentials:
+\`\`\`env
+PUBLIC_SUPABASE_URL=your_supabase_url
+PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+\`\`\`
 
 ## 🧞 Commands
 
-All commands are run from the root of the project, from a terminal:
+All commands are run from the root of the project:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+| Command           | Action                                             |
+| :--------------- | :------------------------------------------------- |
+| \`npm install\`    | Installs dependencies                              |
+| \`npm run dev\`    | Starts local dev server at \`localhost:4321\`        |
+| \`npm run build\`  | Build your production site to \`./dist/\`            |
+| \`npm run preview\`| Preview your build locally, before deploying       |
 
-## 👀 Want to learn more?
+## 🏗️ Project Structure
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+\`\`\`
+/
+├── src/
+│   ├── components/
+│   │   ├── Header.astro
+│   │   ├── Hero.astro
+│   │   ├── Features.astro
+│   │   ├── Stats.astro
+│   │   ├── Subscribe.astro
+│   │   └── Footer.astro
+│   ├── lib/
+│   │   └── supabase.ts
+│   ├── pages/
+│   │   ├── index.astro
+│   │   └── api/
+│   │       └── subscribe.ts
+│   └── styles/
+│       └── global.css
+└── package.json
+\`\`\`
+
+## 🌟 Features
+
+- Responsive design
+- Email subscription form
+- Supabase integration for data storage
+- Server-side form validation
+- Interactive form feedback
+
+## 📝 License
+
+MIT License
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (\`git checkout -b feature/AmazingFeature\`)
+3. Commit your changes (\`git commit -m 'Add some AmazingFeature'\`)
+4. Push to the branch (\`git push origin feature/AmazingFeature\`)
+5. Open a Pull Request
