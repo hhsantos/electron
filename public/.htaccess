@@ -1,0 +1,23 @@
+# Habilitar la reescritura de URLs
+RewriteEngine On
+
+# Redirigir www a non-www
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# Forzar HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Agregar encabezados de caché para archivos estáticos
+<FilesMatch "\.(css|js|jpg|jpeg|png|gif|ico|svg|woff2?|ttf|eot)$">
+    Header set Cache-Control "max-age=31536000, public"
+</FilesMatch>
+
+# Comprimir archivos
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css application/xml application/xhtml+xml application/rss+xml application/javascript application/x-javascript text/javascript
+</IfModule>
+
+# Manejar errores 404
+ErrorDocument 404 /404.html
